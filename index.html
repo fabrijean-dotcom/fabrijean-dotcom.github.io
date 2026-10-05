@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Jean-Marc Fabri, Composer</title>
+<meta name="description" content="Jean-Marc Fabri, composer for picture and pianist from Malta. Film and trailer cues, each heard as the piano take and as the full orchestral score.">
+<meta property="og:title" content="Jean-Marc Fabri, Composer">
+<meta property="og:description" content="Themes written at the piano, orchestrated to picture, cut to the frame.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://fabrijean-dotcom.github.io/">
+<meta property="og:image" content="https://fabrijean-dotcom.github.io/media/5m1-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a dark screening room. One projector up top that plays any cue, with a live
+   piano/orchestra switch; a studio-style cue sheet below loads cues into it. Single committed dark look. */
+:root{
+  --bg:#09090b;          /* house lights down */
+  --panel:#111115;       /* screen surround */
+  --ink:#ece7df;         /* bone, like score paper under tungsten */
+  --muted:#8d8a92;
+  --line:#25242b;
+  --tungsten:#e3a35c;    /* the one accent: projector / tally light */
+  --display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink)}
+body{margin:0;font:400 1rem/1.6 var(--body);-webkit-font-smoothing:antialiased}
+img{max-width:100%}[hidden]{display:none!important}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--tungsten);outline-offset:3px}
+.wrap{max-width:72rem;margin:0 auto;padding-inline:max(16px,4vw)}
+
+/* ---------- top bar ---------- */
+.bar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;
+  padding-block:1.4rem;font:500 .72rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.bar nav{display:flex;gap:1.4rem;flex-wrap:wrap}
+.bar a{text-decoration:none}
+.bar a:hover{color:var(--ink)}
+.tally{display:inline-flex;align-items:center;gap:.55rem}
+.tally::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--tungsten);box-shadow:0 0 10px var(--tungsten)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding-block:clamp(2.5rem,7vw,5.5rem) clamp(2rem,5vw,3.5rem)}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero-inner{position:relative}
+.eyebrow{font:500 .74rem/1.4 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 1.2rem}
+h1{font:400 clamp(3rem,11.5vw,8.6rem)/.92 var(--display);letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1 em{font-style:italic;font-weight:400}
+.thesis{font:400 clamp(1.15rem,2.4vw,1.5rem)/1.45 var(--display);font-style:italic;max-width:34ch;margin:1.6rem 0 0;color:var(--ink);text-wrap:balance}
+
+/* ---------- featured player ---------- */
+.reel{padding-block:0 clamp(3rem,7vw,5rem)}
+.screen{position:relative;background:#000;border:1px solid var(--line);max-width:100%;aspect-ratio:var(--ar,854/356);overflow:hidden;transition:aspect-ratio .3s}
+.screen video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#000}
+.bigplay{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:.9rem;background:linear-gradient(transparent 40%,rgba(0,0,0,.55));
+  border:0;color:var(--ink);cursor:pointer;width:100%}
+.play-btn{width:4.2rem;height:4.2rem;border-radius:50%;border:1px solid var(--ink);display:grid;place-items:center;
+  background:rgba(9,9,11,.45);transition:background .25s,border-color .25s}
+.play-btn svg{width:1.1rem;height:1.1rem;margin-left:.2rem;fill:var(--ink)}
+.bigplay:hover .play-btn{background:var(--tungsten);border-color:var(--tungsten)}
+.bigplay:hover .play-btn svg{fill:var(--bg)}
+.slate{font:500 .7rem/1.4 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+.transport{display:flex;align-items:center;gap:.9rem 1rem;flex-wrap:wrap;margin-top:.9rem}
+.pp{width:2.6rem;height:2.6rem;border-radius:50%;border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer;
+  display:grid;place-items:center;flex:none}
+.pp:hover{border-color:var(--tungsten)}
+.pp svg{width:.8rem;height:.8rem;fill:var(--ink)}
+.tc{font:500 .8rem/1 var(--mono);letter-spacing:.06em;color:var(--tungsten);font-variant-numeric:tabular-nums;flex:none}
+.scrub{flex:1 1 12rem;min-width:0;accent-color:var(--tungsten);height:1.4rem;cursor:pointer}
+.dur{font:400 .74rem/1 var(--mono);color:var(--muted);font-variant-numeric:tabular-nums;flex:none}
+.transport .switch{flex:none}
+.switch button.on-orch[aria-pressed="true"]{background:var(--tungsten);color:var(--bg)}
+.reel-meta{display:flex;justify-content:space-between;gap:.4rem 1rem;flex-wrap:wrap;margin-top:1rem;
+  font:400 .74rem/1.5 var(--mono);letter-spacing:.06em;color:var(--muted);font-variant-numeric:tabular-nums}
+.reel-meta b{color:var(--tungsten);font-weight:500}
+.hint{color:var(--ink)}
+.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85}
+
+/* ---------- section heads ---------- */
+section{border-top:1px solid var(--line)}
+.head{display:grid;grid-template-columns:minmax(0,1fr);gap:.6rem;padding-block:clamp(2.5rem,6vw,4rem) 2rem}
+@media (min-width:760px){.head{grid-template-columns:14rem minmax(0,1fr);align-items:baseline}}
+.head .label{font:500 .72rem/1.4 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--tungsten)}
+h2{font:400 clamp(1.9rem,4.4vw,3rem)/1.05 var(--display);margin:0;text-wrap:balance}
+.lede{color:var(--muted);max-width:60ch;margin:.8rem 0 0}
+
+/* ---------- reel strip (cue selector) ---------- */
+.strip{display:flex;gap:0;overflow-x:auto;margin-bottom:.9rem;border-bottom:1px solid var(--line);scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.strip button{flex:none;background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;color:var(--muted);cursor:pointer;
+  padding:.75rem 1.1rem .7rem 0;margin-right:1.1rem;text-align:left;display:grid;gap:.25rem}
+.strip .no{font:500 .7rem/1 var(--mono);letter-spacing:.12em}
+.strip .t{font:400 1.05rem/1.1 var(--display);color:var(--muted);white-space:nowrap}
+.strip button:hover .t{color:var(--ink)}
+.strip button[aria-pressed="true"]{border-bottom-color:var(--tungsten)}
+.strip button[aria-pressed="true"] .no{color:var(--tungsten)}
+.strip button[aria-pressed="true"] .t{color:var(--ink)}
+.switch{display:inline-grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:999px;padding:3px;align-self:flex-start}
+.switch button{font:500 .72rem/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  background:none;border:0;border-radius:999px;padding:.6rem .95rem;cursor:pointer;transition:background .2s,color .2s}
+.switch button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+/* ---------- cue sheet ---------- */
+.sheet{padding-bottom:clamp(3rem,7vw,5rem);overflow-x:auto}
+.sheet-head,.row{display:grid;grid-template-columns:4.2rem 9rem minmax(0,1.2fr) minmax(0,1fr) 4.5rem 6.5rem;gap:1.2rem;align-items:center}
+.sheet-head{font:500 .66rem/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding-block:0 .8rem;border-bottom:1px solid var(--line)}
+.row{padding-block:1rem;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.row .no{font:500 .8rem/1 var(--mono);color:var(--tungsten);letter-spacing:.08em}
+.row .thumb{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden;border:1px solid var(--line)}
+.row .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.row h3{font:400 1.35rem/1.15 var(--display);margin:0}
+.row .track{display:block;font:italic 400 .95rem/1.3 var(--display);color:var(--muted);margin-top:.2rem}
+.row .src{color:var(--muted);font-size:.9rem;line-height:1.45}
+.row .len{font:400 .8rem/1 var(--mono);color:var(--ink)}
+.row .go{font:500 .7rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink);background:none;
+  border:1px solid var(--line);border-radius:999px;padding:.65rem .9rem;cursor:pointer;justify-self:end;white-space:nowrap}
+.row .go:hover{border-color:var(--tungsten);color:var(--tungsten)}
+.row.playing .go{border-color:var(--tungsten);background:var(--tungsten);color:var(--bg)}
+@media (max-width:820px){
+  .sheet-head{display:none}
+  .row{grid-template-columns:7.5rem minmax(0,1fr);grid-template-areas:"thumb no" "thumb title" "src src" "len go";gap:.5rem 1rem}
+  .row .no{grid-area:no;align-self:end}.row .thumb{grid-area:thumb}.row .ttl{grid-area:title;align-self:start}
+  .row .src{grid-area:src}.row .len{grid-area:len}.row .go{grid-area:go}
+}
+
+/* ---------- method ---------- */
+.steps{display:grid;grid-template-columns:minmax(0,1fr);gap:0;padding-bottom:clamp(3rem,7vw,5rem);counter-reset:step}
+@media (min-width:860px){.steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:2.5rem}}
+.step{padding-block:1.4rem;border-top:1px solid var(--line);min-width:0}
+@media (min-width:860px){.step{border-top:0;padding-block:0}}
+.step .n{font:400 .74rem/1 var(--mono);letter-spacing:.12em;color:var(--tungsten);margin-bottom:.9rem;display:block}
+.step h3{font:400 1.45rem/1.2 var(--display);margin:0 0 .5rem}
+.step p{margin:0;color:var(--muted);max-width:44ch}
+
+/* ---------- about ---------- */
+.about{display:grid;grid-template-columns:minmax(0,1fr);gap:2rem;padding-bottom:clamp(3rem,7vw,5rem)}
+@media (min-width:860px){.about{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:4rem}}
+.about p{margin:0 0 1rem;max-width:62ch}
+.creds{list-style:none;margin:0;padding:0;font:400 .82rem/1.5 var(--mono);color:var(--muted)}
+.creds li{padding-block:.85rem;border-top:1px solid var(--line);display:grid;grid-template-columns:5.5rem minmax(0,1fr);gap:1rem}
+.creds li:last-child{border-bottom:1px solid var(--line)}
+.creds span{color:var(--ink)}
+
+/* ---------- contact ---------- */
+.contact{padding-bottom:clamp(3rem,7vw,5rem)}
+.links{display:flex;flex-direction:column;gap:0}
+.links a,.links .row-link{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;
+  padding-block:1.2rem;border-top:1px solid var(--line);text-decoration:none;font:400 clamp(1.4rem,3.4vw,2.2rem)/1.1 var(--display)}
+.links > :last-child{border-bottom:1px solid var(--line)}
+.links a:hover{color:var(--tungsten)}
+.links small{font:500 .72rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.copy{font:500 .7rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink);background:none;
+  border:1px solid var(--line);border-radius:999px;padding:.55rem .9rem;cursor:pointer}
+.copy:hover{border-color:var(--tungsten)}
+.addr{user-select:all;word-break:break-all}
+footer{border-top:1px solid var(--line);padding-block:1.6rem 2.4rem;font:400 .72rem/1.5 var(--mono);color:var(--muted);letter-spacing:.06em;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="bar">
+    <span class="tally">Jean-Marc Fabri</span>
+    <nav aria-label="Sections">
+      <a href="#cues">Cue sheet</a><a href="#method">Method</a><a href="#about">About</a><a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <canvas id="heroRoll" aria-hidden="true"></canvas>
+    <div class="hero-inner">
+      <p class="eyebrow">Composer for picture · Pianist · Malta</p>
+      <h1>Jean-Marc <em>Fabri</em></h1>
+      <p class="thesis">Themes written at the piano, orchestrated to picture, cut to the frame.</p>
+    </div>
+  </div>
+
+  <div class="reel" id="now">
+    <div class="strip" id="strip" role="group" aria-label="Choose a cue"></div>
+    <div class="screen" id="screen">
+      <video id="pv" playsinline muted preload="auto"></video>
+      <button class="bigplay" id="bigPlay" type="button">
+        <span class="play-btn"><svg viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0l10 6-10 6z"/></svg></span>
+        <span class="slate" id="slate"></span>
+      </button>
+    </div>
+    <div class="transport">
+      <button class="pp" id="pp" type="button" aria-label="Play">
+        <svg viewBox="0 0 10 12" aria-hidden="true" id="ppIcon"><path d="M0 0l10 6-10 6z"/></svg>
+      </button>
+      <span class="tc" id="tc">00:00:00:00</span>
+      <input class="scrub" id="scrub" type="range" min="0" max="1000" step="1" value="0" aria-label="Position in cue">
+      <span class="dur" id="dur">00:00</span>
+      <div class="switch" role="group" aria-label="What you hear">
+        <button type="button" id="mPiano" aria-pressed="false">Piano</button>
+        <button type="button" id="mOrch" class="on-orch" aria-pressed="true">Orchestra</button>
+      </div>
+    </div>
+    <div class="reel-meta">
+      <span id="meta"></span>
+      <span class="hint" id="hint"></span>
+    </div>
+    <audio id="aOrch" preload="auto"></audio>
+    <audio id="aPiano" preload="auto"></audio>
+  </div>
+</div>
+
+<section id="cues">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Cue sheet</span>
+      <div>
+        <h2>Hear the sketch become the score</h2>
+        <p class="lede">Every cue exists twice: the piano take improvised to picture, and the orchestral version built from it. Both run on the same timeline, so the switch above changes the music at the same frame.</p>
+      </div>
+    </div>
+    <div class="sheet">
+      <div class="sheet-head" aria-hidden="true"><span>Cue</span><span></span><span>Title</span><span>Picture</span><span>Length</span><span></span></div>
+      <div id="sheet"></div>
+    </div>
+  </div>
+</section>
+
+<section id="method">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Method</span>
+      <h2>Three stages, in this order</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="n">I · Keyboard</span>
+        <h3>At the piano</h3>
+        <p>Every cue starts as an improvisation played against the picture. Theme, harmony and counterpoint are settled at the keyboard before any orchestra is involved.</p>
+      </div>
+      <div class="step">
+        <span class="n">II · Spotting</span>
+        <h3>Shaped to the cut</h3>
+        <p>The take is fitted to the scene: hits on the blows, tempo moving with the edit, space where the picture needs to breathe.</p>
+      </div>
+      <div class="step">
+        <span class="n">III · Realisation</span>
+        <h3>Full orchestra</h3>
+        <p>The piano score is realised for orchestra with AI-assisted rendering, then edited, mixed and synced to picture. The writing stays mine; the speed is a section's worth of orchestrators.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">About</span>
+      <h2>A pianist who writes for the screen</h2>
+    </div>
+    <div class="about">
+      <div>
+        <p>I am a Maltese composer and pianist. My training is classical and contrapuntal: fugue, counterpoint, the long line of the symphonic repertoire. My instinct as a writer is large-scale and dramatic.</p>
+        <p>I now bring that writing to picture. I rescore action and dramatic sequences, building each cue from a piano take and shaping it to the timing of the scene.</p>
+      </div>
+      <ul class="creds">
+        <li>Piano<span>DipABRSM, with Distinction</span></li>
+        <li>Study<span>Erasmus in composition, Conservatorio Licinio Refice, Frosinone</span></li>
+        <li>Offer<span>Admitted to the Royal Conservatoire of Scotland for piano and composition</span></li>
+        <li>Craft<span>Counterpoint and fugue, orchestration for picture</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Contact</span>
+      <h2>For scoring work and collaborations</h2>
+    </div>
+    <div class="contact"><div class="links" id="links"></div></div>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer><span>© 2026 Jean-Marc Fabri · Music only. Picture from Spider-Man 2 and Spider-Man 3 (Columbia Pictures) and Avengers: Infinity War and Avengers: Endgame (Marvel Studios), and the Doctor Who Series 5 trailer (BBC), used for portfolio rescores; no affiliation.</span><span>Malta · 35°53′N 14°31′E</span></footer>
+</div>
+
+<script>
+/* ======================================================================
+   EDIT HERE: contact links and the cue list.
+   ====================================================================== */
+const SITE = {
+  linkedin: "https://www.linkedin.com/in/jean-marc-fabri-a4a312274",
+  youtube:  "",          // channel URL, optional
+  email:    "",          // shown as copyable text
+  cues: [
+    { id:"5m1", no:"1M1", title:"Series 5 Trailer", film:"Doctor Who (BBC One, 2010)",
+      scene:"The launch trailer, scored from a music-free cut. Dialogue and effects are the trailer's own.", dur:113.2, ar:"640/328",
+      codec:'video/mp4; codecs="avc1.640016"', parts:1 },
+    { id:"1m1", no:"2M1", title:"Train Rescue", film:"Spider-Man 2 (2004)",
+      scene:"Doctor Octopus's runaway train and the rescue that follows.", dur:382.72, ar:"854/356",
+      codec:'video/mp4; codecs="avc1.64001F"', parts:4 },
+    { id:"2m1", no:"3M1", title:"Assemble", film:"Avengers: Endgame (2019)",
+      scene:"The portals open and the armies gather for the final battle.", dur:157.4, ar:"972/514",
+      codec:'video/mp4; codecs="avc1.64001F"', parts:3, pianoEnd:148.3 },
+    { id:"3m1", no:"4M1", title:"Battle on Titan", film:"Avengers: Infinity War (2018)",
+      scene:"Thanos against the team on Titan, from the first strike to the gauntlet.", dur:136.26, ar:"640/266",
+      codec:'video/mp4; codecs="avc1.640016"', parts:1 },
+    { id:"4m1", no:"5M1", title:"Venom's Demise", film:"Spider-Man 3 (2007)",
+      scene:"The scaffolding fight and the fall of Venom.", dur:82.67, ar:"854/356",
+      codec:'video/mp4; codecs="avc1.64001F"', parts:1 }
+  ]
+};
+
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const C = { ink: css("--ink"), amb: css("--tungsten") };
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const mmss = s => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+const primes = s => `${Math.floor(s / 60)}′${String(Math.round(s % 60)).padStart(2, "0")}″`;
+function smpte(s) { // 24 fps timecode, as on a cue sheet
+  const f = Math.floor((s % 1) * 24), t = Math.floor(s), p = n => String(n).padStart(2, "0");
+  return `${p(Math.floor(t / 3600))}:${p(Math.floor(t / 60) % 60)}:${p(t % 60)}:${p(f)}`;
+}
+
+/* ---------- elements ---------- */
+const $ = id => document.getElementById(id);
+const pv = $("pv"), aOrch = $("aOrch"), aPiano = $("aPiano"), screen = $("screen");
+const pp = $("pp"), ppIcon = $("ppIcon"), bigPlay = $("bigPlay"), slate = $("slate");
+const scrub = $("scrub"), tc = $("tc"), durEl = $("dur"), meta = $("meta"), hint = $("hint");
+const mPiano = $("mPiano"), mOrch = $("mOrch"), strip = $("strip"), sheet = $("sheet");
+const tracks = { orch: aOrch, piano: aPiano };
+const PLAY = '<path d="M0 0l10 6-10 6z"/>', PAUSE = '<path d="M0 0h3.5v12H0zM6.5 0H10v12H6.5z"/>';
+
+let cue = null, mode = "orch", heard = null, actx = null, gains = null;
+let wantPlay = false, scrubbing = false, lastHardSync = 0, gen = 0, blobUrl = null;
+
+/* ---------- strip and cue sheet ---------- */
+SITE.cues.forEach((c, i) => {
+  const b = document.createElement("button");
+  b.type = "button"; b.id = "strip-" + c.id;
+  b.innerHTML = `<span class="no">${c.no}</span><span class="t">${esc(c.title)}</span>`;
+  b.addEventListener("click", () => loadCue(i, wantPlay));
+  strip.appendChild(b);
+
+  const r = document.createElement("div");
+  r.className = "row"; r.id = "row-" + c.id;
+  r.innerHTML = `
+    <span class="no">${c.no}</span>
+    <div class="thumb"><img src="media/${c.id}-poster.jpg" alt="" loading="lazy"></div>
+    <div class="ttl"><h3>${esc(c.title)}</h3>${c.track ? `<span class="track">${esc(c.track)}</span>` : ""}</div>
+    <div class="src">${esc(c.film)}<br>${esc(c.scene)}</div>
+    <span class="len">${primes(c.dur)}</span>
+    <button class="go" type="button" id="go-${c.id}">Play ↑</button>`;
+  r.querySelector(".go").addEventListener("click", () => {
+    $("now").scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+    if (cue !== c) loadCue(i, true); else startPlayback();
+  });
+  sheet.appendChild(r);
+});
+
+/* ---------- picture loading: full quality in parts via Media Source, single file otherwise ---------- */
+function loadPicture(c) {
+  const my = ++gen;
+  if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
+  const fallback = `media/${c.id}-picture.mp4`;
+  const MS = window.ManagedMediaSource || window.MediaSource;
+  if (!MS || !MS.isTypeSupported || !MS.isTypeSupported(c.codec)) { pv.src = fallback; return; }
+  const ms = new MS();
+  if (window.ManagedMediaSource && MS === window.ManagedMediaSource) pv.disableRemotePlayback = true;
+  blobUrl = URL.createObjectURL(ms); pv.src = blobUrl;
+  const useFallback = () => {
+    if (my !== gen) return;
+    const t = pv.currentTime; pv.src = fallback;
+    pv.addEventListener("loadedmetadata", () => { try { pv.currentTime = t; } catch (e) {} if (wantPlay) pv.play().catch(() => {}); }, { once: true });
+  };
+  ms.addEventListener("sourceopen", async () => {
+    try {
+      const sb = ms.addSourceBuffer(c.codec);
+      const append = buf => new Promise((res, rej) => {
+        sb.addEventListener("updateend", res, { once: true });
+        sb.addEventListener("error", rej, { once: true });
+        sb.appendBuffer(buf);
+      });
+      const get = u => fetch(u).then(r => { if (!r.ok) throw new Error(u); return r.arrayBuffer(); });
+      await append(await get(`media/${c.id}-v-init.mp4`));
+      if (my !== gen) return;
+      try { ms.duration = c.dur; } catch (e) {}
+      let next = get(`media/${c.id}-v-0.mp4`);
+      for (let i = 0; i < c.parts; i++) {
+        const buf = await next;
+        if (my !== gen) return;
+        if (i + 1 < c.parts) next = get(`media/${c.id}-v-${i + 1}.mp4`);
+        await append(buf);
+      }
+      if (my === gen && ms.readyState === "open") ms.endOfStream();
+    } catch (e) { useFallback(); }
+  }, { once: true });
+}
+pv.addEventListener("error", () => { if (cue && pv.src.startsWith("blob:")) { gen++; pv.src = `media/${cue.id}-picture.mp4`; } });
+
+/* ---------- audio: two soundtracks, one gain each ---------- */
+function initAudio() {
+  if (actx !== null) return;
+  try {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    gains = {};
+    for (const k in tracks) {
+      const g = actx.createGain(); g.gain.value = 0;
+      actx.createMediaElementSource(tracks[k]).connect(g).connect(actx.destination);
+      gains[k] = g;
+    }
+  } catch (e) { actx = false; gains = null; }
+  heard = null; route(true);
+}
+// which track is audible right now: the chosen one, unless the piano take has ended
+const audible = () => (mode === "piano" && cue.pianoEnd && pv.currentTime >= cue.pianoEnd) ? "orch" : mode;
+function route(instant) {
+  const want = audible();
+  const coda = want !== mode;
+  hint.textContent = coda ? "The piano take ends here. The orchestral coda continues."
+    : mode === "orch" ? "Switch to Piano while it plays: same frame, the take it was written from."
+    : "The piano take, improvised to picture. Switch back for the orchestra.";
+  if (want === heard) return;
+  heard = want;
+  if (gains) {
+    const now = actx.currentTime;
+    for (const k in gains) {
+      const g = gains[k].gain; g.cancelScheduledValues(now); g.setValueAtTime(g.value, now);
+      g.linearRampToValueAtTime(k === want ? 1 : 0, now + (instant ? 0.001 : coda ? 0.6 : 0.18));
+    }
+    aOrch.muted = aPiano.muted = false;
+  } else {
+    aOrch.muted = want !== "orch"; aPiano.muted = want !== "piano";
+  }
+}
+function setMode(m) {
+  mode = m; initAudio();
+  mPiano.setAttribute("aria-pressed", m === "piano"); mOrch.setAttribute("aria-pressed", m === "orch");
+  route(false);
+}
+
+/* ---------- sync: the picture is the clock; soundtracks follow by tiny speed changes ---------- */
+function hardSync() {
+  lastHardSync = performance.now();
+  for (const k in tracks) { const a = tracks[k]; a.playbackRate = 1; try { a.currentTime = pv.currentTime; } catch (e) {} }
+}
+function follow() {
+  if (!cue) return;
+  route(false);
+  if (!wantPlay || pv.paused || pv.readyState < 3) return;
+  for (const k in tracks) {
+    const a = tracks[k], d = a.currentTime - pv.currentTime;
+    if (a.ended) continue;
+    if (Math.abs(d) > 0.6 && performance.now() - lastHardSync > 2500) { hardSync(); return; }
+    a.playbackRate = Math.abs(d) < 0.03 ? 1 : Math.max(0.94, Math.min(1.06, 1 - d * 0.5));
+    if (a.paused) a.play().catch(() => {});
+  }
+}
+setInterval(follow, 250);
+
+/* ---------- transport ---------- */
+function setIcon(playing) {
+  ppIcon.innerHTML = playing ? PAUSE : PLAY;
+  pp.setAttribute("aria-label", playing ? "Pause" : "Play");
+  bigPlay.hidden = playing || pv.currentTime > 0;
+}
+function startPlayback() {
+  initAudio();
+  if (actx && actx.state === "suspended") actx.resume();
+  wantPlay = true; hardSync();
+  pv.play().catch(() => {}); aOrch.play().catch(() => {}); aPiano.play().catch(() => {});
+  setIcon(true); markRow();
+}
+function pausePlayback() {
+  wantPlay = false;
+  pv.pause(); aOrch.pause(); aPiano.pause();
+  setIcon(false); markRow();
+}
+function markRow() {
+  SITE.cues.forEach(c => {
+    const r = $("row-" + c.id), on = c === cue && wantPlay;
+    r.classList.toggle("playing", on);
+    r.querySelector(".go").textContent = on ? "Playing" : "Play ↑";
+  });
+}
+
+function loadCue(i, autoplay) {
+  const c = SITE.cues[i];
+  if (c === cue) { if (autoplay) startPlayback(); return; }
+  if (wantPlay) pausePlayback();
+  cue = c; heard = null;
+  screen.style.setProperty("--ar", c.ar);
+  pv.poster = `media/${c.id}-poster.jpg`;
+  aOrch.src = `media/${c.id}-score.mp4`; aPiano.src = `media/${c.id}-piano.mp4`;
+  loadPicture(c);
+  scrub.value = 0; tc.textContent = smpte(0); durEl.textContent = mmss(c.dur);
+  slate.textContent = `Now showing · ${c.no} ${c.title}`;
+  bigPlay.setAttribute("aria-label", `Play cue ${c.no}, ${c.title}`);
+  bigPlay.hidden = false;
+  meta.innerHTML = `<b>${c.no}</b> · ${esc(c.title)}${c.track ? ` · <i>${esc(c.track)}</i>` : ""} · ${esc(c.film)} · ${primes(c.dur)}`;
+  SITE.cues.forEach(x => $("strip-" + x.id).setAttribute("aria-pressed", x === c));
+  route(true); markRow();
+  if (autoplay) startPlayback();
+}
+
+bigPlay.addEventListener("click", startPlayback);
+pp.addEventListener("click", () => (wantPlay ? pausePlayback() : startPlayback()));
+pv.addEventListener("click", () => (wantPlay ? pausePlayback() : startPlayback()));
+mPiano.addEventListener("click", () => setMode("piano"));
+mOrch.addEventListener("click", () => setMode("orch"));
+
+pv.addEventListener("timeupdate", () => {
+  tc.textContent = smpte(pv.currentTime);
+  if (!scrubbing && cue) scrub.value = Math.round(pv.currentTime / cue.dur * 1000);
+});
+pv.addEventListener("ended", () => { pausePlayback(); bigPlay.hidden = false; });
+pv.addEventListener("waiting", () => { if (wantPlay) { aOrch.pause(); aPiano.pause(); } });
+pv.addEventListener("playing", () => { if (wantPlay) { hardSync(); aOrch.play().catch(() => {}); aPiano.play().catch(() => {}); } });
+pv.addEventListener("seeked", () => { if (wantPlay) hardSync(); route(false); });
+
+scrub.addEventListener("input", () => {
+  scrubbing = true;
+  pv.currentTime = scrub.value / 1000 * cue.dur; tc.textContent = smpte(pv.currentTime);
+  bigPlay.hidden = true;
+});
+scrub.addEventListener("change", () => { scrubbing = false; if (wantPlay) hardSync(); });
+document.addEventListener("keydown", e => {
+  if (e.target.closest("input,button,a")) return;
+  if (e.code === "Space" && $("now").getBoundingClientRect().top < innerHeight) {
+    e.preventDefault(); wantPlay ? pausePlayback() : startPlayback();
+  }
+});
+
+// a link ending in #3m1 (any cue number) opens on that cue
+const startAt = Math.max(0, SITE.cues.findIndex(c => "#" + c.no.toLowerCase() === location.hash.toLowerCase()));
+loadCue(startAt, false);
+if (startAt > 0) $("now").scrollIntoView();
+
+/* ---------- links ---------- */
+const rows = [];
+if (SITE.linkedin) rows.push(`<a href="${SITE.linkedin}" target="_blank" rel="noopener">LinkedIn <small>Process notes and new cues ↗</small></a>`);
+if (SITE.youtube) rows.push(`<a href="${SITE.youtube}" target="_blank" rel="noopener">YouTube <small>All cues ↗</small></a>`);
+if (SITE.email) rows.push(`<div class="row-link"><span class="addr" id="addr">${esc(SITE.email)}</span><button class="copy" id="copyBtn" type="button">Copy</button></div>`);
+$("links").innerHTML = rows.join("");
+const cb = $("copyBtn");
+if (cb) cb.onclick = () => {
+  navigator.clipboard.writeText(SITE.email).then(() => { cb.textContent = "Copied"; })
+    .catch(() => { const r = document.createRange(); r.selectNodeContents($("addr"));
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r); cb.textContent = "Selected"; });
+};
+
+/* ---------- hero: a piano roll that turns orchestral as it crosses the playhead ---------- */
+const SCALE = [0,2,3,5,7,8,10];
+const NOTES = (() => {
+  let s = 7, x = 0, deg = 7; const out = [];
+  const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < 90; i++) {
+    deg = Math.max(0, Math.min(16, deg + Math.round((rnd() - .5) * 4)));
+    const len = [0.5, 0.5, 1, 1, 1.5, 2][Math.floor(rnd() * 6)];
+    const p = 50 + Math.floor(deg / 7) * 12 + SCALE[deg % 7];
+    out.push({ x, len, p });
+    if (rnd() < .35) out.push({ x, len, p: p - 7 });
+    x += len;
+  }
+  return { list: out, span: x };
+})();
+const alpha = (hex, a) => { const n = parseInt(hex.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
+const hero = $("heroRoll");
+function drawHero(t) {
+  const r = hero.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
+  const W = Math.max(1, Math.round(r.width * d)), H = Math.max(1, Math.round(r.height * d));
+  if (hero.width !== W || hero.height !== H) { hero.width = W; hero.height = H; }
+  const g = hero.getContext("2d"); g.setTransform(d, 0, 0, d, 0, 0);
+  const w = r.width, h = r.height, ppb = 26, head = w * .5, a = .32, off = (t * 22) % (NOTES.span * ppb);
+  g.clearRect(0, 0, w, h);
+  const y = p => h * .88 - ((p - 38) / 50) * h * .76;
+  for (let rep = -1; rep <= Math.ceil(w / (NOTES.span * ppb)) + 1; rep++) {
+    for (const n of NOTES.list) {
+      const x = n.x * ppb - off + rep * NOTES.span * ppb, len = n.len * ppb - 2;
+      if (x > w || x + len < 0) continue;
+      if (x + len < head) {
+        g.fillStyle = alpha(C.amb, a * .9); g.fillRect(x, y(n.p) - 2, len, 4);
+        g.fillStyle = alpha(C.ink, a * .35); g.fillRect(x, y(n.p + 12) - 1, len, 2); g.fillRect(x, y(n.p - 12) - 1, len, 2);
+        g.fillStyle = alpha(C.amb, a * .25); g.fillRect(x, y(n.p - 24) - 3, len, 6);
+      } else { g.fillStyle = alpha(C.ink, a * .55); g.fillRect(x, y(n.p) - 1.5, len, 3); }
+    }
+  }
+  g.fillStyle = alpha(C.amb, a * .8); g.fillRect(head, 0, 1, h);
+}
+let t0 = null;
+function loop(ts) { if (t0 === null) t0 = ts; if (!wantPlay) drawHero((ts - t0) / 1000); requestAnimationFrame(loop); }
+drawHero(0);
+if (!reduce) requestAnimationFrame(loop);
+addEventListener("resize", () => drawHero(0));
+</script>
+
+</body>
+</html>
