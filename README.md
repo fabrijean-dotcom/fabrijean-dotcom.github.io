@@ -24,6 +24,12 @@ Each cue uses files named after its `id` in `media/`:
 
 Adding a new cue means preparing these files (the sync and encoding are the hard part) and adding one entry to `cues`.
 
+## Publishing
+
+GitHub publishes the site after every commit, usually within a few minutes. If a publication fails on GitHub's side (an outage, a machine that never starts), the **Pages watchdog** in `.github/workflows/pages-watchdog.yml` catches it: it runs after every publication attempt and every three hours, compares the live site with `main`, and asks GitHub to publish again when they differ. Nothing to do by hand.
+
+To republish on demand: **Actions**, then **Pages watchdog**, then **Run workflow**, with *force* ticked.
+
 ## Rights
 
 Music by Jean-Marc Fabri. Picture excerpts belong to their owners (Columbia Pictures, Marvel Studios, BBC) and are used only to present rescores; no affiliation.

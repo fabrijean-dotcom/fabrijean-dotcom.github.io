@@ -1,0 +1,74 @@
+# Pages watchdog
+# GitHub publishes the site only when a commit arrives. If an outage cancels that
+# publication (as on 5 October 2026), the site stays stale until someone pushes again.
+# This workflow checks after every publication attempt and every three hours:
+# when the live site is behind main, it asks GitHub to publish again. Nothing to do by hand.
+
+name: Pages watchdog
+
+on:
+  workflow_run:
+    workflows: ["pages build and deployment", "pages-build-deployment"]
+    types: [completed]
+  schedule:
+    - cron: "17 */3 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Republish even if the live site looks current"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  actions: read
+  deployments: read
+  pages: write
+
+concurrency:
+  group: pages-watchdog
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Republish if the live site is behind main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          FORCE: ${{ inputs.force || 'false' }}
+        run: |
+          set -euo pipefail
+          head=$(gh api "repos/$REPO/commits/main" --jq .sha)
+
+          live=""
+          for id in $(gh api "repos/$REPO/deployments?environment=github-pages&per_page=20" --jq '.[].id'); do
+            state=$(gh api "repos/$REPO/deployments/$id/statuses?per_page=1" --jq '.[0].state // ""')
+            if [ "$state" = "success" ]; then
+              live=$(gh api "repos/$REPO/deployments/$id" --jq .sha)
+              break
+            fi
+          done
+          echo "main: $head"
+          echo "live: ${live:-none}"
+
+          if [ "$FORCE" != "true" ]; then
+            if [ "$live" = "$head" ]; then
+              echo "The live site is current."
+              exit 0
+            fi
+            # A publication for main started less than 40 minutes ago is given time to finish.
+            busy=$(gh api "repos/$REPO/actions/runs?head_sha=$head&per_page=30" --jq \
+              '[.workflow_runs[] | select(.path | test("pages-build-deployment"))
+                | select(.status != "completed")
+                | select((now - (.created_at | fromdateiso8601)) < 2400)] | length')
+            if [ "$busy" != "0" ]; then
+              echo "A publication for main is still in progress."
+              exit 0
+            fi
+          fi
+
+          echo "Requesting a new GitHub Pages publication."
+          gh api -X POST "repos/$REPO/pages/builds" --jq '.status // .'
