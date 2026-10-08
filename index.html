@@ -317,7 +317,7 @@ const SITE = {
       codec:'video/mp4; codecs="avc1.64001F"', parts:1 },
     { id:"6m1", no:"6M1", title:"Jack Runs to the TARDIS", film:"Doctor Who: Utopia (BBC One, 2007)",
       scene:"Captain Jack races across Cardiff and is carried into the vortex clinging to the TARDIS, scored from a music-free cut. Dialogue and effects are the episode's own.", dur:98.7, ar:"854/480",
-      codec:'video/mp4; codecs="avc1.64001F"', parts:2 }
+      codec:'video/mp4; codecs="avc1.64001F"', parts:2, mix:5 }
   ]
 };
 
@@ -501,7 +501,8 @@ function loadCue(i, autoplay) {
   cue = c; heard = null;
   screen.style.setProperty("--ar", c.ar);
   pv.poster = `media/${c.id}-poster.jpg`;
-  aOrch.src = `media/${c.id}-score.mp4`; aPiano.src = `media/${c.id}-piano.mp4`;
+  const q = c.mix ? `?v=${c.mix}` : ""; // bump mix to make browsers fetch a new soundtrack
+  aOrch.src = `media/${c.id}-score.mp4${q}`; aPiano.src = `media/${c.id}-piano.mp4${q}`;
   loadPicture(c);
   scrub.value = 0; tc.textContent = smpte(0); durEl.textContent = mmss(c.dur);
   slate.textContent = `Now showing · ${c.no} ${c.title}`;
