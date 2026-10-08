@@ -68,6 +68,16 @@ jobs:
               echo "A publication for main is still in progress."
               exit 0
             fi
+            # Brake: at most three failed attempts per commit in six hours, so a site that
+            # cannot build never loops. Older failures age out and retries resume.
+            failed=$(gh api "repos/$REPO/actions/runs?head_sha=$head&per_page=50" --jq \
+              '[.workflow_runs[] | select(.path | test("pages-build-deployment"))
+                | select(.status == "completed" and .conclusion != "success")
+                | select((now - (.created_at | fromdateiso8601)) < 21600)] | length')
+            if [ "$failed" -ge 3 ]; then
+              echo "::error::Three publications of this commit failed in the last six hours. Retries pause until older failures age out; check the Actions tab."
+              exit 1
+            fi
           fi
 
           echo "Requesting a new GitHub Pages publication."
