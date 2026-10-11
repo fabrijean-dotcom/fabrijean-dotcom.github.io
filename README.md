@@ -32,35 +32,13 @@ To republish on demand: **Actions**, then **Pages watchdog**, then **Run workflo
 
 ## Sound effects in 7M1
 
-The sound design under the first act of 7M1 (and the cymbal swells and hits around the music) uses these libraries:
+The trailer sound design in 7M1 (the opening hit, the stop on the Sony card, the braam on Marvel Studios, whooshes, hits, the campanile, the risers) is built from real orchestral recordings, processed in the usual trailer way (pitching, layering, saturation, compression, hall reverb):
 
-- **Versilian Community Sample Library (VCSL)**, CC0: suspended cymbal crescendos, clash cymbals, gong, bass drum, timpani, mark tree. https://github.com/sgossner/VCSL
-- **MS-SNSD** (Microsoft), noise recordings: crowd babble and air-conditioning hum from Freesound under CC0; traffic, square, corridor, living room, café, office and restaurant ambiences from the DEMAND corpus (Thiemann, Ito, Vincent), CC BY-SA 3.0. https://github.com/microsoft/MS-SNSD
-- **ESC-50** (K. J. Piczak), CC BY-NC 3.0, clips drawn from Freesound: https://github.com/karolpiczak/ESC-50
-  - 1-105224-A-22 (clapping), Freesound sound 105224
-  - 1-110537-A-22 (clapping), Freesound sound 110537
-  - 1-24796-A-47 (airplane), Freesound sound 24796
-  - 1-47709-A-16 (wind), Freesound sound 47709
-  - 1-47714-A-16 (wind), Freesound sound 47714
-  - 1-62565-A-44 (engine), Freesound sound 62565
-  - 1-76831-A-42 (siren), Freesound sound 76831
-  - 1-81001-A-30 (door wood knock), Freesound sound 81001
-  - 2-120333-A-32 (keyboard typing), Freesound sound 120333
-  - 2-160888-A-47 (airplane), Freesound sound 160888
-  - 2-25292-A-22 (clapping), Freesound sound 25292
-  - 3-246513-A-16 (wind), Freesound sound 246513
-  - 3-94343-A-25 (footsteps), Freesound sound 94343
-  - 4-161103-A-47 (airplane), Freesound sound 161103
-  - 4-176631-A-43 (car horn), Freesound sound 176631
-  - 4-205738-A-22 (clapping), Freesound sound 205738
-  - 5-180156-B-43 (car horn), Freesound sound 180156
-  - 5-198373-A-46 (church bells), Freesound sound 198373
-  - 5-213077-A-11 (sea waves), Freesound sound 213077
-  - 5-250026-B-30 (door wood knock), Freesound sound 250026
-  - 5-254160-A-22 (clapping), Freesound sound 254160
-  - 5-262957-A-22 (clapping), Freesound sound 262957
+- **Versilian Community Sample Library (VCSL)**, CC0: concert bass drums, gong, timpani, clash and suspended cymbals, tubular bells, cajon. https://github.com/sgossner/VCSL
+- **Versilian Chamber Orchestra 2 Community Edition (VSCO-2 CE)**, CC0: tuba, tenor trombone and horn sustains for the braam, cello tremolos for the risers, bass drum, anvil, brake drum. https://github.com/sgossner/VSCO-2-CE
+- **ESC-50** (K. J. Piczak), CC BY-NC 3.0: two aircraft recordings under the take-off (Freesound sounds 24796 and 161103). https://github.com/karolpiczak/ESC-50
 
-The ESC-50 clips are licensed for non-commercial use only. If this cue is ever used commercially, they need replacing.
+The two ESC-50 clips are licensed for non-commercial use only; everything else is public domain.
 
 ## Rights
 
